@@ -1,0 +1,63 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>crm</display-name>
+
+<!--
+  add/create
+    跳转添加页面或者打开添加操作的模态框
+  save
+    执行添加操作
+  edit
+    跳转到修改页或者打开修改操作的模态框
+  update
+    执行修改操作
+  get/find/select/query
+    执行查询操作
+  特殊操作
+    login 登录
+-->
+
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>com.alsw.crm.web.fliter.EncodingFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>loginFilter</filter-name>
+    <filter-class>com.alsw.crm.web.fliter.LoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>loginFilter</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+
+
+  <!-- 用户控制器 -->
+  <servlet>
+    <servlet-name>userController</servlet-name>
+    <servlet-class>com.alsw.crm.settings.web.controller.UserController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>userController</servlet-name>
+    <url-pattern>/settings/user/login.do</url-pattern>
+  </servlet-mapping>
+
+  <!-- 活动控制器 -->
+  <servlet>
+    <servlet-name>activityController</servlet-name>
+    <servlet-class>com.alsw.crm.workbench.web.controller.ActivityController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>activityController</servlet-name>
+    <url-pattern>/workbench/activity/getNames.do</url-pattern>
+  </servlet-mapping>
+
+</web-app>
