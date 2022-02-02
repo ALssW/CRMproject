@@ -22,6 +22,8 @@
     <script type="text/javascript">
 
         $(function () {
+            var loginUserId = "${user.id}";
+            var cmAOchilds;
 
             $('#addBtn').click(function () {
 
@@ -31,17 +33,20 @@
                     type: "get",
                     dataType: "json",
                     success: function (data) {
+                        $.each(data, function (index, v) {
+                            cmAOchilds = $('#create-marketActivityOwner').children();
 
-                        $.each(data, function (i, v) {
-                            var cmAOs = $('#create-marketActivityOwner');
-                            cmAOs.append("<option value=" + v.id + ">" + v.name + "</option>")
+                            for (let i = 0; i < cmAOchilds.length; i++) {
+                                if (cmAOchilds.eq(i).val() === v.id) {
+                                    return;
+                                }
+                            }
+
+                            $('#create-marketActivityOwner').append("<option value=" + v.id + ">" + v.name + "</option>")
                         })
-
+                        $('#create-marketActivityOwner').val("${user.id}");
                     }
-
                 })
-
-                // $('#create-marketActivityOwner').val()
 
                 $('#createActivityModal').modal('show');
             })
