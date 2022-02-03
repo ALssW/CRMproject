@@ -4,4 +4,54 @@
 
 <mapper namespace="com.alsw.crm.workbench.dao.ActivityDao">
 
+    <insert id="saveActivity">
+        insert into tbl_activity(id, owner, name, startDate, endDate, cost, description, createTime, createBy)
+        values (#{id}, #{owner}, #{name}, #{startDate}, #{endDate}, #{cost}, #{description}, #{createTime}, #{createBy})
+    </insert>
+
+    <select id="getActivityList" resultType="Activity">
+        select ta.id, ta.name, tu.name as owner, ta.startDate, ta.endDate
+        from tbl_activity as ta
+        join tbl_user as tu
+        on ta.owner = tu.id
+        <where>
+            <if test="name != null and name != ''">
+                ta.name like "%"#{name}"%"
+            </if>
+            <if test="owner != null and owner != ''">
+                and tu.name like "%"#{owner}"%"
+            </if>
+            <if test="startDate != null and startDate != '' ">
+                and ta.startDate &gt; #{startDate}
+            </if>
+            <if test="endDate != null and endDate != '' ">
+                and ta.endDate &lt; #{endDate}
+            </if>
+        </where>
+        order by ta.createTime desc
+        limit #{skipCount}, #{pageSize}
+
+    </select>
+
+    <select id="getTotalByCondition" resultType="int">
+        select count(*)
+        from tbl_activity as ta
+        join tbl_user as tu
+        on ta.owner = tu.id
+        <where>
+            <if test="name != null and name != ''">
+                ta.name like "%"#{name}"%"
+            </if>
+            <if test="owner != null and owner != ''">
+                and tu.name like "%"#{owner}"%"
+            </if>
+            <if test="startDate != null and startDate != '' ">
+                and ta.startDate &gt; #{startDate}
+            </if>
+            <if test="endDate != null and endDate != '' ">
+                and ta.endDate &lt; #{endDate}
+            </if>
+        </where>
+    </select>
+
 </mapper>
