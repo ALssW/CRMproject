@@ -39,7 +39,6 @@
     <url-pattern>*.do</url-pattern>
   </filter-mapping>
 
-
   <!-- 用户控制器 -->
   <servlet>
     <servlet-name>userController</servlet-name>
@@ -60,6 +59,10 @@
     <url-pattern>/workbench/activity/getNames.do</url-pattern>
     <url-pattern>/workbench/activity/save.do</url-pattern>
     <url-pattern>/workbench/activity/getActivityList.do</url-pattern>
+    <url-pattern>/workbench/activity/getActivity.do</url-pattern>
+    <url-pattern>/workbench/activity/getUserAndActivity.do</url-pattern>
+    <url-pattern>/workbench/activity/deleteActivity.do</url-pattern>
+    <url-pattern>/workbench/activity/updateActivity.do</url-pattern>
   </servlet-mapping>
 
 </web-app>

@@ -10,4 +10,10 @@ public interface ActivityService {
     Boolean save(Activity activity);
 
     PaginationVO<Activity> getActivityList(Map<String, Object> pageMap);
+
+    boolean deleteActivity(String[] activityIDs);
+
+    Activity getActivityByID(String activityID);
+
+    boolean updateActivity(Activity activity);
 }

@@ -54,4 +54,12 @@ public class UserServiceImpl implements UserService {
         return userDao.getUserList();
     }
 
+    @Override
+    public User getUserByActivityOwner(String owner) {
+        User user = null;
+        user = userDao.getUserByActivityOwner(owner);
+
+        return user;
+    }
+
 }

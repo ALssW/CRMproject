@@ -35,7 +35,89 @@ public class ActivityController extends HttpServlet {
             save(req, resp);
         } else if ("/workbench/activity/getActivityList.do".equals(path)) {
             getActivityList(req, resp);
+        } else if ("/workbench/activity/deleteActivity.do".equals(path)) {
+            deleteActivity(req, resp);
+        } else if ("/workbench/activity/getUserAndActivity.do".equals(path)) {
+            getUserAndActivity(req, resp);
+        } else if ("/workbench/activity/updateActivity.do".equals(path)) {
+            updateActivity(req, resp);
         }
+    }
+
+    private void updateActivity(HttpServletRequest req, HttpServletResponse resp) {
+        System.out.println("↓ ==== 进入修改市场活动控制器 ==== ↓");
+
+        Activity activity = new Activity();
+        activity.setId(req.getParameter("id"));
+        activity.setOwner(req.getParameter("owner"));
+        activity.setName(req.getParameter("name"));
+        activity.setStartDate(req.getParameter("startDate"));
+        activity.setEndDate(req.getParameter("endDate"));
+        activity.setCost(req.getParameter("cost"));
+        activity.setDescription(req.getParameter("description"));
+        activity.setEditTime(DateTimeUtil.getSysTime());
+        activity.setEditBy(req.getParameter("editBy"));
+
+        System.out.println("------> 修改的活动ID：" + activity.getId());
+        System.out.println("------> 修改时间：" + activity.getEditTime());
+        System.out.println("------> 修改者：" + activity.getEditBy());
+
+        ActivityService activityService = (ActivityService) ServiceFactory.getService(new ActivityServiceImpl());
+        boolean successFlag = activityService.updateActivity(activity);
+
+        PrintJson.printJsonFlag(resp, successFlag);
+
+        System.out.println("↑ ==== 退出修改市场活动控制器 ==== ↑");
+    }
+
+    private void getUserAndActivity(HttpServletRequest req, HttpServletResponse resp) {
+        System.out.println("↓ ==== 进入获取市场活动与用户控制器 ==== ↓");
+        String activityID = req.getParameter("activityID");
+
+        System.out.println("------> 获取的活动ID：" + activityID);
+
+        ActivityService activityService = (ActivityService) ServiceFactory.getService(new ActivityServiceImpl());
+        Activity activity = activityService.getActivityByID(activityID);
+
+        UserService userService = (UserService) ServiceFactory.getService(new UserServiceImpl());
+        List<User> userList = userService.getUserList();
+
+        System.out.println("------> 获取的活动名：" + activity.getName());
+        System.out.println("------> 获取的活动所有者：" + activity.getOwner());
+        System.out.println("------ 获取的用户列表 ------");
+        for (User u :
+                userList) {
+            System.out.println("------> 获取的用户名：" + u.getName());
+        }
+        System.out.println("--------------------------");
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("activity", activity);
+        map.put("userList", userList);
+
+        PrintJson.printJsonObj(resp, map);
+
+        System.out.println("↑ ==== 退出获取市场活动与用户控制器 ==== ↑");
+    }
+
+    private void deleteActivity(HttpServletRequest req, HttpServletResponse resp) {
+        System.out.println("↓ ==== 进入删除市场活动控制器 ==== ↓");
+
+        String[] activityIDs = req.getParameterValues("id");
+        System.out.println("------ 删除的活动ID ------");
+        for (String id :
+                activityIDs) {
+            System.out.println(id);
+        }
+        System.out.println("-------------------");
+
+        ActivityService activityService = (ActivityService) ServiceFactory.getService(new ActivityServiceImpl());
+        boolean successFlag = activityService.deleteActivity(activityIDs);
+        System.out.println("------> 执行结果：" + successFlag);
+
+        PrintJson.printJsonFlag(resp, successFlag);
+
+        System.out.println("↑ ==== 退出删除市场活动控制器 ==== ↑");
     }
 
     private void getActivityList(HttpServletRequest req, HttpServletResponse resp) {
@@ -71,7 +153,7 @@ public class ActivityController extends HttpServlet {
     }
 
     private void save(HttpServletRequest req, HttpServletResponse resp) {
-        System.out.println("↓ ==== 进入市场活动添加控制器 ==== ↓");
+        System.out.println("↓ ==== 进入保存市场活动控制器 ==== ↓");
 
         // id 使用uuid
         String id = UUIDUtil.getUUID();
@@ -98,8 +180,9 @@ public class ActivityController extends HttpServlet {
         activity.setCreateTime(createTime);
         activity.setCreateBy(createBy);
 
-        System.out.println("------添加的活动信息 ------");
+        System.out.println("------ 添加的活动信息 ------");
         System.out.println(activity);
+        System.out.println("-------------------");
 
         ActivityService activityService = (ActivityService) ServiceFactory.getService(new ActivityServiceImpl());
 
@@ -109,7 +192,7 @@ public class ActivityController extends HttpServlet {
 
         PrintJson.printJsonFlag(resp, successFlag);
 
-        System.out.println("↑ ==== 退出市场活动添加控制器 ==== ↑");
+        System.out.println("↑ ==== 退出保存市场活动控制器 ==== ↑");
     }
 
     private void getNames(HttpServletRequest req, HttpServletResponse resp) {
@@ -121,8 +204,9 @@ public class ActivityController extends HttpServlet {
         System.out.println("------ 获取的用户列表 ------");
         for (User user :
                 userList) {
-            System.out.println("------> 用户信息：" + user);
+            System.out.println("------> 获取的用户名：" + user.getName());
         }
+        System.out.println("-------------------");
 
         // 返回用户名json数组
         if (userList.size() > 0) {
