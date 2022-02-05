@@ -20,4 +20,44 @@
         </foreach>
     </delete>
 
+    <select id="getRemarkCountByAID" resultType="int">
+        select count(*)
+        from tbl_activity_remark
+        where activityId = #{activityID}
+    </select>
+
+    <select id="getRemarkListByAID" resultType="ActivityRemark">
+        select *
+        from tbl_activity_remark
+        where activityId = #{activityID}
+        order by createTime desc
+    </select>
+
+    <delete id="deleteRemark">
+        delete
+        from tbl_activity_remark
+        where id = #{remarkID}
+    </delete>
+
+    <insert id="saveRemark">
+        insert into tbl_activity_remark
+            (id, noteContent, createTime, createBy, editFlag, activityId)
+        values (#{id}, #{noteContent}, #{createTime}, #{createBy}, #{editFlag}, #{activityId})
+    </insert>
+
+    <select id="getActivityRemarkByID" resultType="ActivityRemark">
+        select *
+        from tbl_activity_remark
+        where id = #{remarkID}
+    </select>
+
+    <update id="updateRemark">
+        update tbl_activity_remark
+        set noteContent = #{noteContent},
+            editTime    = #{editTime},
+            editBy      = #{editBy},
+            editFlag    = #{editFlag}
+        where id = #{id}
+    </update>
+
 </mapper>

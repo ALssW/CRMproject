@@ -96,7 +96,6 @@
                         // 回调 返回添加操作是否成功
                         if (data.success) {
                             // 添加成功
-                            console.log("添加成功")
                             // 刷新市场活动列表 局部刷新
                             pageList(1, $('#activityPage').bs_pagination('getOption', 'rowsPerPage'));
                             // 清空添加操作模态框
@@ -106,7 +105,6 @@
                             $('#createActivityModal').modal('hide');
                         } else {
                             // 添加失败
-                            console.log('添加失败')
                         }
                     }
                 });
@@ -116,7 +114,6 @@
             $('#editBtn').click(function () {
                 // 获取已选dataList的id
                 var $checkedDataList = $('input[name=checkedDataList]:checked');
-                console.log($checkedDataList.length);
                 if ($checkedDataList.length === 0) {
                     alert("请选择要修改的记录")
                     return false;
@@ -135,7 +132,6 @@
                     type: "get",
                     dataType: "json",
                     success: function (data) {
-                        console.log(data)
                         // 铺值
                         // 遍历铺值用户名
                         var edAOchilds = $('#edit-owner').children();
@@ -176,13 +172,12 @@
                         "endDate": $.trim($('#edit-endDate').val()),
                         "cost": $.trim($('#edit-cost').val()),
                         "description": $.trim($('#edit-description').val()),
-                        "editBy": "${user.id}"
+                        "editBy": "${user.name}"
                     },
                     type: "post",
                     dataType: "json",
                     success: function (data) {
                         if (data.success) {
-                            console.log("更新成功");
                             pageList($('#activityPage').bs_pagination('getOption', 'currentPage'),
                                 $('#activityPage').bs_pagination('getOption', 'rowsPerPage'));
                             $('#editActivityModal').modal('hide');
@@ -204,7 +199,6 @@
                         return false;
                     }
 
-                    console.log("开始执行删除操作")
                     // 拼接选择的记录id
                     var param = "";
                     for (let i = 0; i < $checkedDataList.length; i++) {
@@ -282,13 +276,12 @@
                                 {"total":xx}
                             {"total":10, "dataList":[{活动1},{活动2}]}
                      */
-                    console.log(data);
                     var dataHtml = "";
                     $.each(data.dataList, function (i, v) {
                         dataHtml += '<tr class="active">';
                         dataHtml += '<td><input type="checkbox" name="checkedDataList" class="dataListCheckBoxs" value="' + v.id + '" /></td>';
                         dataHtml += '<td><a style="text-decoration: none; cursor: pointer;' +
-                            '"onclick="window.location.href=\'workbench/activity/detail.jsp\';">' + v.name + '</a></td>';
+                            '"onclick="window.location.href=\'workbench/activity/detail.do?id=' + v.id + '\';">' + v.name + '</a></td>';
                         dataHtml += '<td>' + v.owner + '</td>';
                         dataHtml += '<td>' + v.startDate + '</td>';
                         dataHtml += '<td>' + v.endDate + '</td>';

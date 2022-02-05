@@ -55,14 +55,22 @@
     <servlet-class>com.alsw.crm.workbench.web.controller.ActivityController</servlet-class>
   </servlet>
   <servlet-mapping>
+    <!-- activity -->
     <servlet-name>activityController</servlet-name>
-    <url-pattern>/workbench/activity/getNames.do</url-pattern>
     <url-pattern>/workbench/activity/save.do</url-pattern>
-    <url-pattern>/workbench/activity/getActivityList.do</url-pattern>
+    <url-pattern>/workbench/activity/detail.do</url-pattern>
+    <url-pattern>/workbench/activity/getNames.do</url-pattern>
     <url-pattern>/workbench/activity/getActivity.do</url-pattern>
-    <url-pattern>/workbench/activity/getUserAndActivity.do</url-pattern>
-    <url-pattern>/workbench/activity/deleteActivity.do</url-pattern>
     <url-pattern>/workbench/activity/updateActivity.do</url-pattern>
+    <url-pattern>/workbench/activity/deleteActivity.do</url-pattern>
+    <url-pattern>/workbench/activity/getActivityList.do</url-pattern>
+    <url-pattern>/workbench/activity/getUserAndActivity.do</url-pattern>
+    <!-- remark -->
+    <url-pattern>/workbench/activity/saveRemark.do</url-pattern>
+    <url-pattern>/workbench/activity/updateRemark.do</url-pattern>
+    <url-pattern>/workbench/activity/deleteRemark.do</url-pattern>
+    <url-pattern>/workbench/activity/getActivityRemark.do</url-pattern>
+    <url-pattern>/workbench/activity/getActivityRemarkList.do</url-pattern>
   </servlet-mapping>
 
 </web-app>

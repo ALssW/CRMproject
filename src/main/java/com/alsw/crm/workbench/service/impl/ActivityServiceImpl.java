@@ -98,4 +98,69 @@ public class ActivityServiceImpl implements ActivityService {
 
         return successFlag;
     }
+
+    @Override
+    public Activity getActivityAndOwnerByID(String activityID) {
+        Activity activity = null;
+        activity = activityDao.getActivityAndOwnerByID(activityID);
+
+        return activity;
+    }
+
+    @Override
+    public List<ActivityRemark> getActivityRemarkList(String activityID) {
+        int count = activityRemarkDao.getRemarkCountByAID(activityID);
+        System.out.println("------> 获取的备注总数：" + count);
+
+        List<ActivityRemark> remarkList = null;
+        remarkList = activityRemarkDao.getRemarkListByAID(activityID);
+
+        return remarkList;
+    }
+
+    @Override
+    public boolean deleteRemark(String remarkID) {
+        boolean successFlag = false;
+
+        int count = activityRemarkDao.deleteRemark(remarkID);
+
+        if (count == 1) {
+            successFlag = true;
+        }
+
+        return successFlag;
+    }
+
+    @Override
+    public boolean saveRemark(ActivityRemark activityRemark) {
+        boolean successFlag = false;
+
+        int count = activityRemarkDao.saveRemark(activityRemark);
+
+        if (count == 1) {
+            successFlag = true;
+        }
+
+        return successFlag;
+    }
+
+    @Override
+    public ActivityRemark getActivityRemarkByID(String remarkID) {
+        ActivityRemark remark = null;
+        remark = activityRemarkDao.getActivityRemarkByID(remarkID);
+
+        return remark;
+    }
+
+    @Override
+    public boolean updateRemark(ActivityRemark remark) {
+        boolean successFlag = false;
+
+        int count = activityRemarkDao.updateRemark(remark);
+        if (count == 1){
+            successFlag = true;
+        }
+
+        return successFlag;
+    }
 }

@@ -19,4 +19,6 @@ public interface ActivityDao {
     Activity getActivityByID(String activityID);
 
     int updateActivity(Activity activity);
+
+    Activity getActivityAndOwnerByID(String activityID);
 }

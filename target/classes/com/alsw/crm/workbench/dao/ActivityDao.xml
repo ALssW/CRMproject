@@ -68,6 +68,24 @@
         where id = #{activityID}
     </select>
 
+    <select id="getActivityAndOwnerByID" resultType="Activity">
+        select ta.id,
+               tu.name  as owner,
+               ta.name,
+               ta.startDate,
+               ta.endDate,
+               ta.cost,
+               ta.description,
+               ta.createTime,
+               ta.createBy,
+               ta.editTime,
+               ta.editBy
+        from tbl_activity as ta
+                 join tbl_user tu
+                      on ta.owner = tu.id
+        where ta.id = #{activityID}
+    </select>
+
     <update id="updateActivity">
         update tbl_activity
         set owner       = #{owner},
