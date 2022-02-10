@@ -59,7 +59,7 @@
                             }
 
                             $('#create-owner').append("<option value=" + v.id + ">" + v.name + "</option>")
-                        })
+                        });
                         $('#create-owner').val("${user.id}");
                     }
                 });

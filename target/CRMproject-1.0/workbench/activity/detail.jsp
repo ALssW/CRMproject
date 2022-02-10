@@ -74,6 +74,7 @@
                 $(this).children("span").css("color", "#E6E6E6");
             })
 
+            // 保存备注按钮
             $('#saveRemarkBtn').click(function () {
                 var remarkText = $('#remarkTextArea').val();
 
@@ -103,6 +104,7 @@
 
             });
 
+            // 更新备注按钮
             $('#updateRemarkBtn').click(function () {
                 if (!confirm("是否更新该备注")) {
                     return false;

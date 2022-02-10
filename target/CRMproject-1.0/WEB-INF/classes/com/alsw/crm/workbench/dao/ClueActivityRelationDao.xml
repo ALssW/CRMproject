@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.alsw.crm.workbench.dao.ClueActivityRelationDao">
+
+    <select id="getRelationList" resultType="ClueActivityRelation">
+        select *
+        from tbl_clue_activity_relation
+        where clueId = #{clueID}
+    </select>
+
+    <select id="getActivityList" resultType="Activity">
+        select car.id,
+               tu.name as owner,
+               ta.name,
+               ta.startDate,
+               ta.endDate
+        from tbl_activity as ta
+                 join tbl_user as tu
+                      on tu.id = ta.owner
+                 join tbl_clue_activity_relation as car
+                      on car.activityId = ta.id
+        where ta.id in (select activityId
+                        from tbl_clue_activity_relation
+                        where clueId = #{clueID})
+    </select>
+
+    <delete id="removeRelation">
+        delete
+        from tbl_clue_activity_relation
+        where id = #{id}
+    </delete>
+
+    <insert id="addDetailRelation">
+        insert into tbl_clue_activity_relation(id, clueId, activityId)
+        VALUES (#{id}, #{clueId}, #{activityId})
+    </insert>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

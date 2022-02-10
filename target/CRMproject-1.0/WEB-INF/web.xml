@@ -5,6 +5,7 @@
 <web-app>
   <display-name>crm</display-name>
 
+
 <!--
   add/create
     跳转添加页面或者打开添加操作的模态框
@@ -49,6 +50,11 @@
     <url-pattern>/settings/user/login.do</url-pattern>
   </servlet-mapping>
 
+  <!-- 监听器 -->
+  <listener>
+    <listener-class>com.alsw.crm.web.listener.SysInitListener</listener-class>
+  </listener>
+
   <!-- 活动控制器 -->
   <servlet>
     <servlet-name>activityController</servlet-name>
@@ -72,5 +78,24 @@
     <url-pattern>/workbench/activity/getActivityRemark.do</url-pattern>
     <url-pattern>/workbench/activity/getActivityRemarkList.do</url-pattern>
   </servlet-mapping>
+
+
+  <!-- 线索控制器 -->
+  <servlet>
+    <servlet-name>clueController</servlet-name>
+    <servlet-class>com.alsw.crm.workbench.web.controller.ClueController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>clueController</servlet-name>
+    <url-pattern>/workbench/clue/getUserList.do</url-pattern>
+    <url-pattern>/workbench/clue/saveClue.do</url-pattern>
+    <url-pattern>/workbench/clue/detail.do</url-pattern>
+    <url-pattern>/workbench/clue/getDetailRelation.do</url-pattern>
+    <url-pattern>/workbench/clue/addDetailRelation.do</url-pattern>
+    <url-pattern>/workbench/clue/removeRelation.do</url-pattern>
+    <url-pattern>/workbench/clue/getAllActivity.do</url-pattern>
+  </servlet-mapping>
+
+
 
 </web-app>

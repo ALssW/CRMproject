@@ -21,4 +21,8 @@ public interface ActivityDao {
     int updateActivity(Activity activity);
 
     Activity getActivityAndOwnerByID(String activityID);
+
+    List<Activity> getAllActivityByNameNotClueId(Map<String, String> map);
+
+    List<Activity> getAllActivityNotClueId(String clueID);
 }

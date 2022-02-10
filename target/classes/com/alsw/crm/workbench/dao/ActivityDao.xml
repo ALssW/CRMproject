@@ -70,7 +70,7 @@
 
     <select id="getActivityAndOwnerByID" resultType="Activity">
         select ta.id,
-               tu.name  as owner,
+               tu.name as owner,
                ta.name,
                ta.startDate,
                ta.endDate,
@@ -98,5 +98,29 @@
             editBy      = #{editBy}
         where id = #{id};
     </update>
+
+    <select id="getAllActivityByNameNotClueId" resultType="Activity">
+        select ta.id,
+               tu.name as owner,
+               ta.name,
+               ta.startDate,
+               ta.endDate
+        from tbl_activity as ta
+                 join tbl_user as tu
+                      on ta.owner = tu.id
+        where ta.name like "%"#{name}"%" and ta.id not in (select activityId from tbl_clue_activity_relation where clueId = #{clueID})
+    </select>
+
+    <select id="getAllActivityNotClueId" resultType="Activity">
+        select ta.id,
+               tu.name as owner,
+               ta.name,
+               ta.startDate,
+               ta.endDate
+        from tbl_activity as ta
+                 join tbl_user as tu
+                      on ta.owner = tu.id
+        where ta.id not in (select activityId from tbl_clue_activity_relation where clueId = #{clueID})
+    </select>
 
 </mapper>

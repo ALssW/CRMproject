@@ -157,10 +157,26 @@ public class ActivityServiceImpl implements ActivityService {
         boolean successFlag = false;
 
         int count = activityRemarkDao.updateRemark(remark);
-        if (count == 1){
+        if (count == 1) {
             successFlag = true;
         }
 
         return successFlag;
     }
+
+    @Override
+    public List<Activity> getAllActivityNotClueId(String clueID) {
+        List<Activity> activityList;
+        activityList = activityDao.getAllActivityNotClueId(clueID);
+        return activityList;
+    }
+
+    @Override
+    public List<Activity> getAllActivityByNameNotClueId(Map<String, String> map) {
+
+        List<Activity> activityList;
+        activityList = activityDao.getAllActivityByNameNotClueId(map);
+        return activityList;
+    }
+
 }
